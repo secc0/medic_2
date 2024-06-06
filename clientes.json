@@ -1,0 +1,15 @@
+[
+    {
+      "nome": "João da Silva",
+      "cpf": "38462014808",
+      "idade": 30,
+      "endereco": "Rua A, 123"
+    },
+    {
+      "nome": "Maria Oliveira",
+      "cpf": "12345678901",
+      "idade": 25,
+      "endereco": "Rua B, 456"
+    }
+  ]
+  
