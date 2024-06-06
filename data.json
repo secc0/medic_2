@@ -1,0 +1,14 @@
+[
+  {
+      "id": 1,
+      "nome": "João",
+      "cpf": "12345678900",
+      "email": "joao@example.com"
+  },
+  {
+      "id": 2,
+      "nome": "Maria",
+      "cpf": "98765432100",
+      "email": "maria@example.com"
+  }
+]
