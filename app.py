@@ -34,7 +34,8 @@ def get_by_cpf(cpf):
     if data is None:
         return jsonify({"error": "Não foi possível obter os dados"}), 500
 
-    cliente = next((record for record in data if record.get('cpf') == cpf), None)
+    # Convertendo os CPFs armazenados em strings para comparação
+    cliente = next((record for record in data if str(record.get('cpf')) == cpf), None)
     if cliente:
         return jsonify(cliente)
     else:
