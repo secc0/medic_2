@@ -3,11 +3,9 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-# Caminho para o arquivo JSON local
 JSON_FILE = 'data.json'
 
 def load_data():
-    """Função para carregar os dados do arquivo JSON."""
     try:
         with open(JSON_FILE, 'r') as file:
             data = json.load(file)
@@ -19,7 +17,6 @@ def load_data():
         print(f"Erro ao decodificar o arquivo {JSON_FILE}. Formato inválido.")
         return None
 
-# Endpoint para retornar todo o banco de dados
 @app.route('/')
 def get_all():
     data = load_data()
@@ -27,15 +24,15 @@ def get_all():
         return jsonify({"error": "Não foi possível obter os dados"}), 500
     return jsonify(data)
 
-# Endpoint para retornar dados de um CPF específico
 @app.route('/cpf/<cpf>')
 def get_by_cpf(cpf):
     data = load_data()
     if data is None:
         return jsonify({"error": "Não foi possível obter os dados"}), 500
 
-    # Convertendo os CPFs armazenados em strings para comparação
-    cliente = next((record for record in data if str(record.get('cpf')) == cpf), None)
+    # Garantir que o CPF é tratado como string
+    cpf = str(cpf).zfill(11)
+    cliente = next((record for record in data if str(record.get('cpf')).zfill(11) == cpf), None)
     if cliente:
         return jsonify(cliente)
     else:
