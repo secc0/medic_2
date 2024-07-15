@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de CPF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 300px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Consulta de CPF</h2>
+    <form id="cpfForm">
+        <label for="cpfInput">Digite o CPF:</label>
+        <input type="text" id="cpfInput" placeholder="Digite o CPF sem pontos ou traços">
+        <button type="submit">Consultar</button>
+    </form>
+    <div class="result">
+        <h3>Resultado:</h3>
+        <p id="resultText">Aqui aparecerá a data de nascimento.</p>
+    </div>
+
+    <script>
+    document.getElementById('cpfForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const cpf = document.getElementById('cpfInput').value.trim();
+        if (!cpf) {
+            alert('Por favor, digite um CPF válido.');
+            return;
+        }
+    
+        const apiUrl = `https://medic-2.vercel.app/cpf/${cpf}`;
+        try {
+            const response = await fetch(apiUrl, { mode: 'cors' });
+            if (!response.ok) {
+                throw new Error('Erro ao acessar a API.');
+            }
+            const data = await response.json();
+            document.getElementById('resultText').textContent = `Data de nascimento: ${data.date}`;
+        } catch (error) {
+            console.error('Erro ao acessar a API:', error.message);
+            document.getElementById('resultText').textContent = 'Erro ao consultar a API. Verifique o CPF e tente novamente.';
+        }
+    });
+    </script>
+</body>
+</html>
